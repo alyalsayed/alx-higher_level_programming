@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-"""Define an empty class Rectangle."""
+"""Define an empty class Square."""
 
 
-class Rectangle:
+class Rectangle: 
     """Empty Rectangle class
     """
     pass
+
