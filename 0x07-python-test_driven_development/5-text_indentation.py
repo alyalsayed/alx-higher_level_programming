@@ -1,18 +1,27 @@
 #!/usr/bin/python3
 
-
 def text_indentation(text):
-    """
-    prints a string of text with 2 new lines after '.', '?', and ':'
-    unit tests located in tests/5-text_indentation.txt
+    """Print text with two new lines after each '.', '?', and ':'.
+
+    Args:
+        text (string): The text to print.
+    Raises:
+        TypeError: If text is not a string.
     """
     if not isinstance(text, str):
         raise TypeError("text must be a string")
 
-    string = ""
-    specials = ['.', '?', ':']
-    for ch in text:
-        string += ch
-        if ch in specials:
-            string += "\n\n"
-    print(string, end='')
+    c = 0
+    while c < len(text) and text[c] == ' ':
+        c += 1
+
+    while c < len(text):
+        print(text[c], end="")
+        if text[c] == "\n" or text[c] in ".?:":
+            if text[c] in ".?:":
+                print("\n")
+            c += 1
+            while c < len(text) and text[c] == ' ':
+                c += 1
+            continue
+        c += 1
