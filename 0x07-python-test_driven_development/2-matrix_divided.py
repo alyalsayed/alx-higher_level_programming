@@ -1,31 +1,29 @@
 #!/usr/bin/python3
 
-
 def matrix_divided(matrix, div):
+    """Divide a matrix elements.
+    Args:
+        matrix (list): A list of ints and floats lists.
+        div (int/float): The divisor.
+    Raises:
+        TypeError: If the matrix contains non-numbers.
+        TypeError: If the matrix contains rows of different sizes.
+        TypeError: If div is not an int or float.
+        ZeroDivisionError: If div is 0.
+    Returns:
+        The result of the division.
     """
-    divides all elements of a matrix, elements must be ->
-        int or float type
-    """
-    if not isinstance(div, (int, float)):
+    if (matrix == [] or not isinstance(matrix, list) or
+        not all(isinstance(row, list) for row in matrix) or
+        not all((isinstance(list_element, int) or isinstance(list_element, float))
+                for list_element in [row_el for row in matrix for row_el in row])):
+        raise TypeError("matrix must be a matrix (list of lists) of "
+                        "integers/floats")
+    if not all(len(matrix[0]) == len(row) for row in matrix):
+        raise TypeError("Each row of the matrix must have the same size")
+    if not isinstance(div, int) and not isinstance(div, float):
         raise TypeError("div must be a number")
-        return matrix
-    elif div == 0:
+    if div == 0:
         raise ZeroDivisionError("division by zero")
-        return matrix
 
-    prevRowLen = -1
-    new_list = []
-    for row in matrix:
-        if (prevRowLen != len(row) and prevRowLen != -1):
-            raise TypeError("Each row of the matrix must have the same size")
-            return matrix
-        for ele in row:
-            if not isinstance(ele, (int, float)):
-                raise TypeError("matrix must be a matrix (list of lists) of" +
-                                " integers/floats")
-                return matrix
-            else:
-                new_list.append(round(ele / div, 2))
-        prevRowLen = len(row)
-
-    return new_list
+    return ([list(map(lambda x: round(x / div, 2), row)) for row in matrix])
