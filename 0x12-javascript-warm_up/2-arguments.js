@@ -1,6 +1,7 @@
 #!/usr/bin/node
-/* A script to print a message depending
-   on the number of arguments .
+/*
+A script to print a message depending
+on the number of arguments .
 */
 const numArgv = process.argv.length;
 if (numArgv < 3) {
