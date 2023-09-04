@@ -1,20 +1,13 @@
 #!/usr/bin/python3
-"""
-takes in a URL, sends a request to the URL and displays the
-body of the response using requests
-"""
+"""Script that takes in a URL and
+displays the body of the response """
 import requests
-from sys import argv
+import sys
 
 
-if __name__ == "__main__":
-    """
-    takes in a URL, sends a request to the URL and displays the
-    body of the response using requests
-    """
-    url = argv[1]
-    r = requests.get(url)
-    if r.status_code >= 400:
-        print("Error code: {}".format(r.status_code))
+if __name__ == '__main__':
+    the_req = requests.get(sys.argv[1])
+    if the_req.status_code >= 400:
+        print("Error code: {}".format(the_req.status_code))
     else:
-        print(r.text)
+        print(the_req.text)

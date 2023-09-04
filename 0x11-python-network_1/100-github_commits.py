@@ -1,25 +1,22 @@
 #!/usr/bin/python3
-"""
-list 10 commits (from the most recent to oldest) of the repository “rails”
-by the user “rails”
-"""
+""" Script that list ten commits for a repository
+and an owner"""
 import requests
-from sys import argv
+import sys
 
 
-if __name__ == "__main__":
-    """
-    list 10 commits (from the most recent to oldest) of the repository
-    “rails” by the user “rails”
-    """
-    repo = argv[1]
-    owner = argv[2]
-    url = 'https://api.github.com/repos/{}/{}/commits'.format(owner, repo)
-    r = requests.get(url)
-    res_list = r.json()
+if __name__ == '__main__':
+    the_repo = sys.argv[1]
+    the_owner = sys.argv[2]
+    the_url = "https://api.github.com/repos/{}/{}/commits".format(
+        the_repo, the_owner)
+
+    the_req = requests.get(the_url)
+    the_commits = the_req.json()
     try:
         for i in range(10):
-            print("{}: {}".format(res_list[i].get('sha'), res_list[i].
-                                  get('commit').get('author').get('name')))
-    except:
+            print("{}: {}".format(
+                the_commits[i].get("sha"),
+                the_commits[i].get("commit").get("author").get("name")))
+    except IndexError:
         pass
