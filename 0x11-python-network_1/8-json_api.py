@@ -1,19 +1,24 @@
 #!/usr/bin/python3
-"""Script that takes in a letter and sends a POST
-request to http://0.0.0.0:5000/search_user"""
-import requests
+"""Sends a POST request to http://0.0.0.0:5000/search_user with a given letter.
+
+Usage: ./8-json_api.py <letter>
+  - The letter is sent as the value of the variable `q`.
+  - If no letter is provided, sends `q=""`.
+"""
 import sys
+import requests
 
-if __name__ == '__main__':
-    the_letter = {"q": ''} if len(sys.argv) == 1 else sys.argv[1]
-    letter = {"q": the_letter}
-    the_req = requests.post('http://0.0.0.0:5000/search_user', letter)
 
+if __name__ == "__main__":
+    letter = "" if len(sys.argv) == 1 else sys.argv[1]
+    payload = {"q": letter}
+
+    r = requests.post("http://0.0.0.0:5000/search_user", data=payload)
     try:
-        obj_json = the_req.json()
-        if not obj_json:
+        response = r.json()
+        if response == {}:
             print("No result")
         else:
-            print("[{}] {}".format(obj_json.get('id'), obj_json.get('name')))
+            print("[{}] {}".format(response.get("id"), response.get("name")))
     except ValueError:
-        print("Not a Valid JSON")
+        print("Not a valid JSON")
